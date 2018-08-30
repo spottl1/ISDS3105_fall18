@@ -161,17 +161,14 @@ names(age) <- family
  
  - Use inline code `r ##` to print your name and age (using indexing)
 
-```{r}
-myName <- "Seth Pottle, 26"
-```
-
+My name is `r age[3]` (prints name and age)
 
  - What happens when:
    + You extract using a positive index bigger than the vector length?
-   NA
+   The output is 'NA'
    
    + You subset by a name that doesn't exist?
-   Error: object not found
+   The output is 'NA'
    
    + You assign a number to position 20 of the age vector?
    The number is assigned to postion 20.

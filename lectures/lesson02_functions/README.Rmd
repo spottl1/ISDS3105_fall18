@@ -175,7 +175,7 @@ sum(c(1, 2, NA), na.rm = TRUE)
 Using `if(condition) { }` you can conditionally execute a snippet of code. For instance, we can test whether you installed the library `tidyverse` and install it if not:
 
 ```{r}
-if(!require(tidyverse)) {install.packages(tidyverse)}
+if(!require(tidyverse)) {install.packages('tidyverse')}
 ```
 
 Each if-statement evaluates to a `TRUE` or `FALSE`, thus be carefull when you are testing vectors: Only the first element will be used.
@@ -244,15 +244,44 @@ Turn the followings into functions, making sure that your function retrieves an 
 
 - `mean(x, na.rm = T)`
 
+```{r}
+avg <- function(x) {
+  
+  if(!is.numeric(x)) stop('`x` is not a number', call. = F)
+  
+  mean(x, na.rm = T)
+}
+```
+
+
 - `x / sum(x, na.rm = TRUE)`
 
+```{r}
+prop <- function(x) {
+  
+  if(!is.numeric(x)) stop('`x` is not a number', call. = F)
+  
+  x / sum(x, na.rm = T)
+}
+```
+
+
 - `sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)`
+
+```{r}
+cov <- function(x) {
+  
+  if(!is.numeric(x)) stop('`x` is not a number', call. = F)
+  
+  sd(x, na.rm = T) / mean(x, na.rm = T)
+}
+```
 
 
 For the pros: Use `BRRR::skrrrahh(33)` to listen DJ Khaled yelling "They don't wanna see us win!" when `x` is not numeric. The package is available on GitHub only:
 
 ```{r}
-if(!require(devtools)) {install.packages(devtools)}
+if(!require(devtools)) {install.packages('devtools')}
 devtools::install_github("brooke-watson/BRRR")
 ```
 
@@ -262,6 +291,14 @@ devtools::install_github("brooke-watson/BRRR")
 Write a function `yearlySalary` to convert any values <8000 to NA. You can use indexing or a function such as `ifelse()`. Then, output each value as a dollar amount using `scales::dollar()`.
 For example, the `c(100, 0, NA, 2000, 8000)` should be returned as `c("$NA", "$NA", "$NA", "$NA", "$8000")`.
 
+```{r}
+yearlySalary <- function(x) {
+  
+  if(!is.numeric(x)) stop('`x` is not a number', call. = F)
+  
+  ifelse(x<8000, '$NA', scales::dollar(x))
+}
+```
 
 
 

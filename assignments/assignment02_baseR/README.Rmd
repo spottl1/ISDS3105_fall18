@@ -102,7 +102,7 @@ length(prices)
 
 
 
-10. Knit, commit and push to your GitHub repo `assignment`. Then submit the link to the *assignment folder* on Moodle.
+10. Knit, commit, and push to your GitHub repo `assignment`. Then submit the link to the *assignment folder* on Moodle.
 
 
 

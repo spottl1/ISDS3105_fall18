@@ -125,7 +125,7 @@ str(fit, max.level = 0)
 Work out the exercises on a new branch of your git repo. Once you are confident that your solutions are correct, merge the branch you created to your master branch. Follow this workflow:
 
 1. Save and commit everything up to now
-2. Create a new branch and switch to it `$ git checkout -b solutions` (`$ git checkout [name_of_your_new_branch]` to switch between branches)
+2. Create a new branch and switch to it `$ git checkout -b solutions` (`$ git checkout -b [name_of_your_new_branch]` to switch between branches)
 3. Go back to your master `$ git checkout master` and merge it with `solutions` using `$ git merge solutions`
 4. After you merge, commit to master and push to GitHub
 
@@ -161,7 +161,7 @@ names(age) <- family
  
  - Use inline code `r ##` to print your name and age (using indexing)
 
-My name is `r age[3]` (prints name and age)
+`r age[3]`
 
  - What happens when:
    + You extract using a positive index bigger than the vector length?

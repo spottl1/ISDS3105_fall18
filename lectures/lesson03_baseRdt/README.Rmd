@@ -64,7 +64,7 @@ iphoneSales$iPhone4S
 ```
 
 
-```{r }
+```{r eval = FALSE}
 #For readability, show the code but hide the output of this chucnk once you tested the solutions
 # use dataframe[row,col] to
 

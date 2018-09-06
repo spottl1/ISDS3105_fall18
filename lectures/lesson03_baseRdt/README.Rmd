@@ -150,7 +150,7 @@ c('hello', 'hi', 'bye', 'ciao') %>%
 
 
 ```{r}
-# `$` is a function too. Can you pipe `iphoneSales` to `$` to extract the vectro `iPhoneX`? Then, calculate the mean removing NAs
+# `$` is a function too. Can you pipe `iphoneSales` to `$` to extract the vector `iPhoneX`? Then, calculate the mean removing NAs
 
 ```
 

@@ -87,9 +87,9 @@ So far, we specified aesthetics and datasets inside a specific geom. However, if
 #Use the dataset twitter_users
 #Use the set of aesthetics: aes(x = Year, y = millions )
 #combine together geom_line() and geom_point() 
-ggplot() +
-  geom_line(data = twitter_users, aes(x = Year, y = millions)) +
-  geom_point(data = twitter_users, aes(x = Year, y = millions))
+ggplot(data = twitter_users) +
+  geom_line(aes(x = Year, y = millions)) +
+  geom_point(aes(x = Year, y = millions))
 ```
 
 
@@ -98,7 +98,7 @@ ggplot() +
 #use sn_users to overlay a linechart of FB users over time
 ggplot() +
   geom_line(data = twitter_users, aes(x = Year, y = millions)) +
-  geom_line(data = fbMobile_users, aes(x = Year, y = millions))
+  geom_line(data = sn_users, aes(x = year, y = facebook))
 ```
 
 
@@ -107,24 +107,36 @@ ggplot() +
 
  - use `beerDt` to create a linechart of beer consumption (in gallons of ethanol) in US from 1903.
  - add a layer of points using `geom_point`
+```{r}
+ggplot(data = beerDt) +
+  geom_line(aes(x = Year, y = GallonsCapita)) +
+  geom_point(aes(x = Year, y = GallonsCapita))
+```
+ 
  
  Suppose that you now want to flag (e.g., use a different color) the observation for consumption in your birthyear. We can do it in two steps:
     
     1. Create a new variable called 'myBirthYear' that takes value 'My birthyear' for your birth year, and NA for everything else. You could use `ifelse()` or conditional indexing/assignment
     
 ```{r}
-myBirthYear <- ifelse(Year = 1992, 'my birth year', 'NA')
+myBirthYear <- ifelse(beerDt$Year == 1992, 'my birth year', 'NA')
 ```
     
     2. Map `myBirthYear` to the fill of `geom_point` to flag your birth year
     
 ```{r}
 ggplot() +
-  geom_point(data = beerDt, aes(x = Year, y = GallonsCapita, fill = myBirthYear))
+  geom_point(data = beerDt, aes(x = Year, y = GallonsCapita, color = myBirthYear))
 ```
      
     
     3. Use ggtitle to add a title to the chart
+```{r}
+ggplot(data = beerDt) +
+  geom_point(aes(x= Year, y = GallonsCapita, color = myBirthYear)) +
+  ggtitle("My Birth Year")
+```
+
 
 
 

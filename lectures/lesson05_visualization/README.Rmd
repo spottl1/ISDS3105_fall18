@@ -32,12 +32,20 @@ ggplot(data = freqCasualties, aes(x = class, y = n, fill = gender)) +
   geom_col()
 
 #we want to plot the below chart using selfiesCasualties
+
 #1. Replicate the above using selfiesCasualties and geom_bar() instead of geom_col. You need to change the default stat  to 'identity'
 
-#ggplot( data = selfiesCasualties, aes()) +
-#  geom_bar()
+ggplot() +
+  stat_count(data = selfiesCasualties, aes(x = class, fill = gender)) +
+  geom_bar()
 
 #2. Plot proportions instead of counts for both the previous charts
+ggplot() +
+  geom_col(data = freqCasualties, aes(x = class, y = n/sum(n), fill = gender))
+
+ggplot() +
+  stat_identity(data = selfiesCasualties, aes(x = class, y = prop, fill = gender)) + 
+  geom_bar()
 
 ```
 

@@ -12,10 +12,25 @@ library(fivethirtyeight)
 For this assignment we are using a dataset from the website [Fivethirtyeight](http://fivethirtyeight.com/). All these datasets are available on their [GitHub page](https://github.com/fivethirtyeight/data/) and in the `fivethirtyeight` package.
 
 1. Install and load the `fivethirtyeight` library. For this assigment we are using the dataset `bad_drivers`.
+```{r}
+head(bad_drivers)
+```
+
 
 2. In the narrative, add a brief description (`?bad_drivers` for a description of the dataset) using *inline code* to show the variable names.
 
+bad_drivers is a data frame with 51 rows, representing the 50 states and Washington D.C., and 8 variables. The data describes information regarding bad drivers in each of the 50 states. 
+`r colnames(bad_drivers)`
+
+
 3. Plot a dot chart of premiums by losses. Map the count of drivers to the size of the dots.
+```{r}
+install.packages('ggplot2')
+require(ggplot2)
+ggplot() +
+  geom_dotplot(data = bad_drivers, aes(x = insurance_premiums, y = losses))
+```
+
 
 4. Test what values from `state` are equal to "Louisiana" and assign the output to a new variable called `Louisiana' (logical)
 

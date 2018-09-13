@@ -126,7 +126,8 @@ myBirthYear <- ifelse(beerDt$Year == 1992, 'my birth year', 'NA')
     
 ```{r}
 ggplot() +
-  geom_point(data = beerDt, aes(x = Year, y = GallonsCapita, color = myBirthYear))
+  geom_point(data = beerDt, aes(x = Year, y = GallonsCapita, color = 
+  myBirthYear))
 ```
      
     

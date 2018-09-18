@@ -43,16 +43,16 @@ ggplot() +
 ggplot() +
   geom_col(data = freqCasualties, aes(x = class, y = n/sum(n), fill = gender))
 
-ggplot() +
-  stat_identity(data = selfiesCasualties, aes(x = class, y = prop, fill = gender)) + 
-  geom_bar()
+ggplot(data = selfiesCasualties) +
+  geom_bar(aes(x = class, y = ..prop.., group = 1))
 
 ```
 
 To plot a barchart for `selfiesCasualties`, you need to map y to the frequencies count of each `class` and `gender`. For dataset where **each row is an observation** (versus the count for each grouping level) you can use `geom_*(stat = 'count')`, which is the default for `geom_bar()`. To concude, you can view `geom_col` as a special instance of `geom_bar(... , stat='identity')`
 
 ```{r}
-
+ggplot(data = selfiesCasualties) +
+  geom_bar(aes(x = ))
 ```
 
 

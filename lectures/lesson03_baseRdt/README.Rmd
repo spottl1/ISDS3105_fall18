@@ -118,7 +118,7 @@ iphoneSales_df
 # from iphoneSales_tibble extract the *vector* with the amounts of iphone7/7plus sold in 2017
 
 iphoneSales_tibble <- as_tibble(iphoneSales)
-
+iphoneSales_tibble[iphoneSales_tibble$time %in% c("Sep 2017", "Dec 2017"), c("iPhone7", "iPhone7Plus")]
 
 ```
 
@@ -151,6 +151,7 @@ c('hello', 'hi', 'bye', 'ciao') %>%
 
 ```{r}
 # `$` is a function too. Can you pipe `iphoneSales` to `$` to extract the vector `iPhoneX`? Then, calculate the mean removing NAs
+
 
 ```
 

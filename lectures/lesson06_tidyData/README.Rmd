@@ -81,7 +81,7 @@ Now inspect the dataset for `iphoneSales`, containing the number of iphones sold
 
 gather(data = iphoneSales, key = 'Quarter', value = 'milSales', -year, na.rm = TRUE) %>% 
   ggplot() +
-  geom_line(aes(x= Quarter, y = milSales, color = year))
+  geom_line(aes(x= Quarter, y = milSales, color = 'year'))
 ```
  
 
@@ -89,8 +89,16 @@ However, sometimes you actually want to untidy datasets, for example to make the
 
 ```{r}
 #spread() to untidy
+spread(data = socialNetwork_users, key = 'company', value = 'percent')
+
 #pass the output inside kable() to render a better looking table
+spread(data = socialNetwork_users, key = 'company', value = 'percent') %>%
+  kable()
+
 #plot a line chart mapping the color to each social network name, years to the horizontal axis, and percent to the vertical axis
+spread(data = socialNetwork_users, key = 'company', value = 'percent') %>%
+  ggplot() +
+  geom_line(aes(x = Year, y = percent, color = company))
 ```
 
 

@@ -98,7 +98,11 @@ spread(data = socialNetwork_users, key = 'company', value = 'percent') %>%
 #plot a line chart mapping the color to each social network name, years to the horizontal axis, and percent to the vertical axis
 spread(data = socialNetwork_users, key = 'company', value = 'percent') %>%
   ggplot() +
-  geom_line(aes(x = Year, y = percent, color = company))
+  geom_line(aes(x = Year, y = Facebook, color = 'Facebook')) +
+  geom_line(aes(x = Year, y = Instagram, color = 'Instagram')) +
+  geom_line(aes(x = Year, y = LinkedIn, color = 'LinkedIn')) +
+  geom_line(aes(x = Year, y = Pinterest, color = 'Pinterest')) + 
+  geom_line(aes(x = Year, y = Twitter, color = 'Twitter'))
 ```
 
 
@@ -122,6 +126,10 @@ iphoneSales <- data.frame(
                   iPhone8 = c(NA, NA, NA, NA, 6, 24, 13), 
                   iPhone8Plus = c(NA, NA, NA, NA, 10.5, 17, 24), 
                   iPhoneX = c(NA, NA, NA, NA, NA, 20.1, 17))
+
+gather(iphoneSales, 'phone', 'sales', -time, na.rm = T) %>%
+  ggplot() +
+  geom_bar(aes(x = phone))
 ```
 
 

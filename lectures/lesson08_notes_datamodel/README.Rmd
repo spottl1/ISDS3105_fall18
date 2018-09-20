@@ -24,7 +24,7 @@ dbListFields(con, 'review') # these are the attributes in the entity review
 Each dplyr query, is trasnlated to a SQL query. For instance, to query a whole entity:
 
 ```{r}
-tbl(con, 'review')
+myTable <- tbl(con, 'review')
 show_query(tbl(con, 'review')) #this shows how tbl(con, 'review') translates to SQL
 tbl(con, sql('SELECT * FROM review')) #this is how you can use actual SQL
 ```

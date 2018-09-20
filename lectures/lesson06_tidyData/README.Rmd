@@ -129,7 +129,7 @@ iphoneSales <- data.frame(
 
 gather(iphoneSales, 'phone', 'sales', -time, na.rm = T) %>%
   ggplot() +
-  geom_bar(aes(x = phone))
+  geom_bar(aes(x = phone, y = sales), stat = 'identity')
 ```
 
 

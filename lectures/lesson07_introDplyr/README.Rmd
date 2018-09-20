@@ -337,20 +337,27 @@ airlines <- airlines
 1. Use the appropriate join to add the full carrier names to `flights` using `airlines` :
 
 ```{r}
-
+leftFlight <- left_join(flights, airlines, by = 'carrier')
+leftFlight
 ```
 
 
 2. Count the number of flights for each carrier using the full carrier name. Then plot a bar chart of the counts.
 
 ```{r}
-
+leftFlight %>%
+  group_by(name) %>%
+  summarise(tot = n()) %>%
+  ggplot() + 
+  geom_bar(aes(x = name, y = tot), stat = 'identity')
 ```
 
 3. Calculate the average visibility for the flights by each carrier. Plot the result in a barchart.
 
 ```{r}
-
+leftFlight %>%
+  group_by(name) %>%
+  
 ```
 
 4. What is the busiest route?

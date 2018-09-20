@@ -327,6 +327,8 @@ semi_join(twitter_users, fbMobile_users, by = 'Year') #retain all records from A
 ```{r}
 #we need 2 datasets from ncyflights13 package:
 if (!require(nycflights13)) install.packages('nycflights13')
+flights <- flights
+airlines <- airlines
 #flights
 #airlines
 ```

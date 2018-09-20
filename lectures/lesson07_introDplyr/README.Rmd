@@ -95,11 +95,13 @@ beerDt %>%
 3. Using `untidyReview`, filter all records with missing values on `reviewLocation`. Hint: you need to use `is.na()` to test what elements are missing.
 ```{r}
 untidyReview %>%
+  filter(is.na(reviewLocation))
 ```
 
 4. Using `selfiesCasualties`, filter all records for victims who dies abroad (`country` different than `nationality`)
 ```{r}
-
+selfiesCasualties %>%
+  filter(country != nationality)
 ```
 
 To filter positionally, use `slice()` or `filter(between(row_number(), 1, 10))`. For instance, to filter the first 3 rows from `titanicDt`
@@ -223,7 +225,7 @@ selfiesCasualties %>%
 titanicDt %>%
   filter(Survived == "No") %>%
   group_by(Class) %>%
-  summarise(tot = mean(n))
+  summarise(avg = mean(n))
 ```
 
 2. Using `titanicDt`, calculate the average casualties by gender (note that the dataset has both survivors/non-survivors counts)
@@ -231,17 +233,24 @@ titanicDt %>%
 titanicDt %>%
   filter(Survived == 'No') %>%
   group_by(Sex) %>%
-  summarise(tot = mean(n))
+  summarise(avg = mean(n))
 ```
 
 3. Using `beerDt`, calculate the average consumption before and after your birthyear (hint: you may create a new variable)
 ```{r}
-
+beerDt$preMBY <- beerDt$Year < 1992
+beerDt %>%
+  group_by(preMBY) %>%
+  summarise(preAVG = mean(GallonsCapita))
 ```
 
-4. Using `titanicDt`, calulcate the count of casualties by nationality, then arrange descending.
+4. Using `titanicDt`, calulcate the count of casualties by age, then arrange descending.
 ```{r}
-
+titanicDt %>%
+  filter(Survived == 'No') %>%
+  group_by(Age) %>%
+  summarise(tot = n()) %>%
+  arrange(desc(tot))
 ```
 
 

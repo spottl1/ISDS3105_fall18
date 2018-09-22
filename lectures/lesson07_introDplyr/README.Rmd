@@ -338,7 +338,6 @@ airlines <- airlines
 
 ```{r}
 leftFlight <- left_join(flights, airlines, by = 'carrier')
-leftFlight
 ```
 
 
@@ -357,18 +356,28 @@ leftFlight %>%
 ```{r}
 leftFlight %>%
   group_by(name) %>%
-  
+  summarise(avg = mean(arr_delay, na.rm = T)) %>%
+  ggplot() +
+  geom_bar(aes(x = name, y = avg), stat = 'identity')
 ```
 
 4. What is the busiest route?
 
 ```{r}
-
+leftFlight$route <- paste(leftFlight$origin, leftFlight$dest)
+leftFlight %>%  
+  group_by(route) %>%
+  summarise(tot = n()) %>%
+  arrange(desc(tot))
 ```
 
 5. What's the busiest day for each of the departing airports? 
 
 ```{r}
-
+leftFlight$date <- paste(leftFlight$month, leftFlight$day, leftFlight$year, sep = '/')
+leftFlightdate <- leftFlight %>%
+  group_by(origin, date) %>%
+  summarise(tot = n()) %>%
+  arrange(desc(tot))
 ```
 

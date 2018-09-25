@@ -122,7 +122,7 @@ selfiesCasualties %>%
   distinct(country, gender)
 ```
 
-Note that `distinct` will also automatically drop all columns that are not passed into `distinct`. To keep all columns in the dataset, you need to specify `.keep_all = FALSE`.
+Note that `distinct` will also automatically drop all columns that are not passed into `distinct`. To keep all columns in the dataset, you need to specify `.keep_all = TRUE`.
 
 1. Using `selfiesCasualties`, subset the dataset by the distinct levels for `class`
 ```{r}
@@ -199,7 +199,7 @@ beerDt %>%
 
 2. Using `socialNetwork_users` add a percent sign to the variable percent (use `paste0()`)
 ```{r}
-socialNetwork_users %>%
+socialNetwork_users = socialNetwork_users %>%
   mutate(percent = paste0(percent, '%'))
 ```
 

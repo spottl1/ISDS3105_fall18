@@ -238,6 +238,7 @@ titanicDt %>%
 
 3. Using `beerDt`, calculate the average consumption before and after your birthyear (hint: you may create a new variable)
 ```{r}
+beerDt <- beerDt[!(beerDt$Year %in% c(1992)),]
 beerDt$preMBY <- beerDt$Year < 1992
 beerDt %>%
   group_by(preMBY) %>%
@@ -249,7 +250,7 @@ beerDt %>%
 titanicDt %>%
   filter(Survived == 'No') %>%
   group_by(Age) %>%
-  summarise(tot = n()) %>%
+  summarise(tot = sum(n)) %>%
   arrange(desc(tot))
 ```
 

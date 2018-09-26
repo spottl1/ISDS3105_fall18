@@ -81,7 +81,7 @@ Now inspect the dataset for `iphoneSales`, containing the number of iphones sold
 
 gather(data = iphoneSales, key = 'Quarter', value = 'milSales', -year, na.rm = TRUE) %>% 
   ggplot() +
-  geom_line(aes(x= Quarter, y = milSales, color = 'year'))
+  geom_line(aes(x= Quarter, y = milSales, color = factor(year), group = year))
 ```
  
 

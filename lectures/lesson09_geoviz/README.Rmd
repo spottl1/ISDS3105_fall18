@@ -9,6 +9,7 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
 library(tidyverse)
 library(fivethirtyeight)
+install.packages('maps')
 ```
 
 
@@ -136,8 +137,8 @@ However, the issue with the previous map is that bigger shape somewhat magnetize
 
 
 ```{r}
+install.packages('spData')
 if (!require('geofacet')) install.packages('geofacet')
-
 
 bad_drivers %>% left_join(tibble(abb = state.abb,state = state.name)) %>% 
     mutate(abb = case_when(state=='District of Columbia' ~ 'DC', T ~ abb)) %>% 
@@ -176,7 +177,8 @@ citypremium
 First, we need the coordinates for city names to draw a point on the map for each city. The dataset zipcode form the package `zipcode` containts all US cities:
 
 ```{r}
-library(zipcode)
+install.packages('zipcode')
+require(zipcode)
 data("zipcode") #load the dataset
 ```
 

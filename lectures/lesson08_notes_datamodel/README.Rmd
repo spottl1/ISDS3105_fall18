@@ -38,7 +38,7 @@ tbl(con, 'review') %>% mutate(mean(reviewService, na.rm = T))
 A viable solution is to `collect()` the output of your query before:
 
 ```{r}
-tbl(con, 'review') %>% collect %>%  summarise(avg = mean(reviewService, na.rm = T))
+tbl(con, 'review') %>% collect() %>%  summarise(avg = mean(reviewService, na.rm = T))
 ```
 
 However, you want to `collect()` as late as possible to make sure you leverage the computational power of your server and you avoid downloading unnecessary data on your machine.

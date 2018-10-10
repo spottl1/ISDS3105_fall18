@@ -12,7 +12,15 @@ Note that there is a difference between time and datetime: If you coerce `create
 
 ``` r
 dt <- read_csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/trump-twitter/realDonaldTrump_poll_tweets.csv')
+dt$created_at <- mdy_hms(dt$created_at)
+dt %>%
+  ggplot() +
+  geom_histogram(aes(x = created_at)) +
+  xlab('date') +
+  scale_x_datetime(date_labels = '%b %y')
 ```
+
+![](README_files/figure-markdown_github/unnamed-chunk-1-1.png)
 
 Income map
 ==========
@@ -21,8 +29,39 @@ Use the below dataset to plot a choropleth map of incomes by state. Map `median_
 
 ``` r
 dt <- read_csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/hate-crimes/hate_crimes.csv')
+
+
+states <- map_data('state')
+
+mutate(dt, state = tolower(state)) %>%
+  left_join(states, by = c('state' = 'region')) %>%
+  ggplot() +
+  geom_polygon(aes(x = long, y = lat, group = group, fill = median_household_income), color = 'white') +
+  coord_fixed(1.3) +
+   scale_fill_gradient(labels = dollar_format(), low = 'white', high = '#a50e39', name = 'Median Income')
 ```
+
+    ## Warning: package 'bindrcpp' was built under R version 3.4.4
+
+![](README_files/figure-markdown_github/unnamed-chunk-2-1.png)
 
 Repeat the above for the Deep South only (Louisiana, Alabama, Mississippi, Georgia, South Carolina). Add a title.
 
+``` r
+mutate(dt, state = tolower(state)) %>%
+  left_join(states, by = c('state' = 'region')) %>%
+  filter(state == c('louisiana', 'alabama', 'mississippi', 'georgia', 'south carolina')) %>%
+  ggplot() +
+  geom_polygon(aes(x = long, y = lat, group = group, fill = median_household_income), color = 'white') +
+  coord_fixed(1.3) +
+  scale_fill_gradient(labels = dollar_format(), low = 'white', high = '#a50e39', name = 'Median Income')
+```
+
+    ## Warning in state == c("louisiana", "alabama", "mississippi", "georgia", :
+    ## longer object length is not a multiple of shorter object length
+
+![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)
+
 Use inline code to output the median income (appropriately formatted) and the Gini-Index for Louisiana.
+
+The median income for Louisiana is $42,406 and the Gini-Index is 0.475.

@@ -32,7 +32,7 @@ str(myDate)
 diff(myDate)
 ```
 
-Dates R essentially numbers indicating the days from a certain origin (default to `1970-01-01`):
+Dates are essentially numbers indicating the days from a certain origin (default to `1970-01-01`):
 ```{r}
 typeof(myDate) 
 as.double(as.Date('1970-01-01'))

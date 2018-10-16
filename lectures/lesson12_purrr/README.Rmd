@@ -64,32 +64,33 @@ Build a for-loop to calcualte the mean for each element of `t`
 
 ```{r}
 
-output <-       # output
+output <- vector('list', nrow(t))      # output
 
-for (...) {     # sequence
-  ...           # body
+for (i in 1:nrow(t)) {     # sequence
+  output[i] <- mean(t$x[[i]] )     # body
 }
+
+output
 ```
 
 Note how "filling" `t` is more efficient than iteratively add elements to `t` using indexing:
 
 ```{r}
+install.packages('microbenchmark')
 library(microbenchmark)
 t <- tibble(x = rep(t$x, 100))
 microbenchmark(
   #below is the code for the for-loop specifing the dimensions of `output`
   preparringOutput = {
    output <- vector("double", length(t$x))  
-   #########################################
-   ## copy here the code for the for-loop ##
-   #########################################
+   for (i in 1:nrow(t)) {     # sequence
+  output[i] <- mean(t$x[[i]] ) }
   },
   #below is the same for-loop WITHOUT specifing the dimensions of `output`
   withoutPreparring =   { 
     output <- NULL
-   #########################################
-   ## copy here the code for the for-loop ##
-   #########################################
+   for (i in 1:nrow(t)) {     # sequence
+  output[i] <- mean(t$x[[i]] ) }
   }
 )
 ```
@@ -109,7 +110,7 @@ The main advantage of using `map()` is to have a more concise syntax, but note h
 ```{r}
 x <- rep(x, 50)
 microbenchmark(
-  withMap = { map(x, typeof) },
+  withMap = { purrr::map(x, typeof) },
   withLoop = {
     output <- vector("list", length(x)) 
     for (i in seq_along(x)) { output[i] <- typeof(x[[i]]) }
@@ -127,6 +128,7 @@ To pass the arguments of the function `.f`, when have to options:
 #load the environment load(here::here('data', 'dataset.rdata'))
 # calculate the quarterly means of iphoneSales removing NAs
 
+map(iphoneSales, .f = mean, na.rm = T)
 ```
 
 
@@ -146,6 +148,7 @@ t %>% mutate(nums = map_chr(.x = nums, 2, .default = as.character(NA)))
 
 #using map() to pluck values like iterating the subset function `[`
 t %>% mutate(nums = map_chr(.x = nums, `[`, 2))
+             
 ```
 
 You can extract also by element name:

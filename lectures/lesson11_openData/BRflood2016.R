@@ -12,6 +12,7 @@ library(tidyverse)
 #' ggmap needs revisions. For now, we are stacked witht he dev version
 if(!requireNamespace("devtools")) install.packages("devtools")
 devtools::install_github("dkahle/ggmap", ref = "tidyup")
+install.packages('ggmap')
 library(ggmap)
 
 ######################################
@@ -92,6 +93,8 @@ query <- "$where=offense_date between '2016-08-12' and '2016-08-22'"
 ######################################
 ####    Layer of inundate areas  #####
 ######################################
+install.packages('rgdal')
+install.packages('ggpolypath')
 library(rgdal)
 library(ggpolypath)
 shpFile <- here('data/Estimated_Flood_Inundation_Area/Estimated_Flood_Inundation_Area.shp')

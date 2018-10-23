@@ -119,14 +119,15 @@ dt %>%
 
 #. Use `case_when` to refactor `offensetime_discrete` using the following labels:
 
-```{}
+```{r}
    - >=10.00 pm but <= 5.00 am ----> night
    - >5.00 am but <= 10.30 am ----> morning
    - >10.30 am but < 2.00 pm -----> day
    - >=2.00 am but < 5.30 pm -----> afternoon
    - anything else ---> evening
    
-   
+dt %>%
+  mutate(isNight = case_when(between(offensetime_discrete, 20:00:00, 5:00:00) ~ 'night', between(offensetime_discrete, 5:00:00, 10:30:00) ~ 'morning', between(offensetime_discrete, 10:30:00, 14:00:00) ~ 'day', between(offensetime_discrete, 14:00:00, 17:30:00) ~ 'afternoon', T ~ 'evening'))
 ```
 
 

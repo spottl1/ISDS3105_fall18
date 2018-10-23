@@ -56,7 +56,6 @@ tbl(con, 'hotel') %>%
 
 #. Report the top 3 hotels with the highest number of rooms (keep only hotelId, hotelName, hotelRooms)
 ```{r}
-options(warn = -1)
 tbl(con, 'hotel') %>%
   select(hotelId, hotelName, hotelRooms) %>%
   arrange(desc(hotelRooms)) %>%
@@ -104,21 +103,34 @@ tbl(con, 'hotel') %>%
 ```{r}
 tbl(con, 'hotel') %>%
   left_join(tbl(con, 'review')) %>%
-  group_by(hotelId, hotelName) %>%
-  summarise(tot = n())
+  select(hotelId, hotelName, reviewId) %>%
+  count(hotelId, hotelName, wt = !is.na(reviewId), sort = T)
 ```
 
 #. Report how many chains established their headquarter in each country. Plot a barchart those frequencies by country and then add a title to your plot. Adjust your axes' labels as needed (remember that non-data ink points are modified within `theme()`).
 
 ```{r}
-
+tbl(con, 'lodgingchain') %>%
+  count(headquarters) %>%
+  ggplot() +
+  geom_col(aes(x = headquarters, y = n)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ggtitle("Number of Hotels Per Country")
 ```
 
 
 #. For each review of stays during 2011, calculate the composite average score as the mean of Location, Room, Service, Value and Cleanliness. Then plot a histogram (using `geom_hist()`) of the differences between the average of those 5 attributes and ratingOverall.
 
 ```{r}
-
+tbl(con, 'review') %>%
+  filter(reviewStayYear == '2011') %>%
+  collect() %>%
+  gather('attribute', 'score', reviewCleanliness:reviewValue) %>%
+  group_by(reviewId) %>%
+  summarise(avg = mean(score), overall = mean(reviewOverall)) %>%
+  mutate(diff = avg - overall) %>%
+  ggplot() +
+  geom_histogram(aes(x = diff))
 ```
 
 *warning*: If you query the DB and then pipe the remote table into a ggplot2 function, you might need to `collect()` the remote table before passing it to `ggplot()`, because `ggplot()` expects a class `data.frame` (and tibbles are also data.frame). However, if you pass a different object (such as a connection) "it will be converted to one by fortify()" (see the documentation `?ggplot()`). 
@@ -128,7 +140,10 @@ Apparently, for some of you `fortify()` does not convert the table to a local da
 #. Report all data about brands that have minimum square footage requirement for rooms that exceeds the average minimum square footage of all brands by at least 50%.
 
 ```{r}
-
+tbl(con, 'brand') %>%
+  filter(!is.na(brandMinSqFt)) %>%
+  collect() %>%
+  filter(brandMinSqFt >= mean(brandMinSqFt)*1.5)
 ```
 
 

@@ -9,7 +9,7 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
 library(tidyverse)
 library(fivethirtyeight)
-install.packages('maps')
+library(maps)
 ```
 
 
@@ -55,7 +55,7 @@ mutate(premiums, state = tolower(state)) %>% #reducing to lower-case to make sur
 mapInsurance 
 ```
 
-Not bad, let's to some final twicks. For instance, it is unclear from the legend which type of variable we are plotting. Since premiums are in dollars, we can add a dollar sign. Also, we override the default labels to include the highest and lowest value on the color-gradient legend:
+Not bad, let's do some final tweaks. For instance, it is unclear from the legend which type of variable we are plotting. Since premiums are in dollars, we can add a dollar sign. Also, we override the default labels to include the highest and lowest value on the color-gradient legend:
 
 ```{r}
 if (!require('scales')) {
@@ -215,6 +215,16 @@ Use the `map_data("world")` and the dataset on [alcohol consumption in the world
 
 ```{r}
 dt <- read_csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/alcohol-consumption/drinks.csv')
+
+world <- map_data('world')
+
+dt <- gather(dt, beverageType, count, -country)
+
+left_join(dt, world, by = c('country' = 'region')) %>%
+ggplot() +
+  geom_polygon(aes(x = long, y = lat, group = group, fill = count), color = 'white') +
+  coord_fixed(1.3) +
+  facet_wrap(~beverageType)
 ```
 
 

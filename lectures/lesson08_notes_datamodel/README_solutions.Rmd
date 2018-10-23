@@ -64,7 +64,7 @@ tbl(con, 'review') %>% filter(reviewStayYear == 2011) %>%
   collect() %>% 
   gather('attribute', 'score', reviewCleanliness:reviewValue) %>% 
   group_by(reviewId) %>% summarise(compAvg = mean(score), overall = mean(reviewOverall)) %>% 
-  mutate(diff = compAvg - overall) %>% 
+  mutate(diff = Compavg - overall) %>% 
   ggplot() +
   geom_histogram(aes(x = diff))
 ```

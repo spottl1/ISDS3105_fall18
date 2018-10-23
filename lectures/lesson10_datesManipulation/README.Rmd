@@ -108,8 +108,13 @@ second(datime)
 #. Calculate the day of the week with the most crimes 
 
 ```{r}
-load(here::here('data', 'dataset.RData'))
+load(here::here('data', 'datasetCrime.RData'))
 dt <- left_join(dt, lkt)
+
+dt %>%
+  group_by(wday(as.Date(offensedate))) %>%
+  summarise(tot = n()) %>%
+  arrange(desc(tot))
 ```
 
 #. Use `case_when` to refactor `offensetime_discrete` using the following labels:
@@ -120,6 +125,8 @@ dt <- left_join(dt, lkt)
    - >10.30 am but < 2.00 pm -----> day
    - >=2.00 am but < 5.30 pm -----> afternoon
    - anything else ---> evening
+   
+   
 ```
 
 

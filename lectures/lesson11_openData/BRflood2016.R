@@ -2,14 +2,14 @@
 #' To use the Socrata API:
 #' create your  `token <- c(sec = ..., app = ...)` and keep 
 #' it into a separate .R to source()
-
-source(here('lectures/lesson11_openData/tokenSocrata.R'))
+install.packages('RSocrata')
+source(here('lectures/lesson11_openData/lecture11Token.R'))
 library(RSocrata)
 library(here)
 library(tidyverse)
 
 #' Google API requirements has changed. As a results, the package
-#' ggmap needs revisions. For now, we are stacked witht he dev version
+#' ggmap needs revisions. For now, we are stacked with the dev version
 if(!requireNamespace("devtools")) install.packages("devtools")
 devtools::install_github("dkahle/ggmap", ref = "tidyup")
 install.packages('ggmap')
@@ -48,7 +48,7 @@ dt_311 <- dt_311 %>%
 #' on the left menu select: credentials > create credentials > API key
 #' the API key goes in:
 
-ggmap::register_google(key = googleAPIkey)
+ggmap::register_google(key = 'AIzaSyDJnRmTNYJJLcJFVxlBR-10ne9eq25SWOM')
 
 #Use get_map to query the Google API (we use the LSU coordinate)
 brMap <- ggmap::get_map(location = c( lon = -91.1500, lat = 30.5000),  zoom = 10, maptype = 'toner') 

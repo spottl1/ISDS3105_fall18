@@ -120,25 +120,25 @@ dt %>%
 #. Use `case_when` to refactor `offensetime_discrete` using the following labels:
 
 ```{r}
-   - >=10.00 pm but <= 5.00 am ----> night
+  '- >=10.00 pm but <= 5.00 am ----> night
    - >5.00 am but <= 10.30 am ----> morning
    - >10.30 am but < 2.00 pm -----> day
    - >=2.00 am but < 5.30 pm -----> afternoon
-   - anything else ---> evening
+   - anything else ---> evening'
    
 dt %>%
-  mutate(isNight = case_when(between(offensetime_discrete, 20:00:00, 5:00:00) ~ 'night', between(offensetime_discrete, 5:00:00, 10:30:00) ~ 'morning', between(offensetime_discrete, 10:30:00, 14:00:00) ~ 'day', between(offensetime_discrete, 14:00:00, 17:30:00) ~ 'afternoon', T ~ 'evening'))
-```
+  mutate(offensetime = case_when(offensetime_discrete == 'night' ~ '>=10:00pm but 5:00am' ~ night, offensetime_discrete == 'morning' ~ '>5:00am but 10:30am', offensetime_discrete == 'day' ~ '>10:30am but <2:00pm', offensetime_discrete == 'afternoon' ~ '>=2:00pm but < 5:30pm', T ~ 'evening'))
 
+```
 
 #. Plot the density of crimes facetting by year. Make sure each facet goes from Jan to Dec of that year only, and the x-axis shows one label for each month
 
 ```{r, error=TRUE}
 #substitute ... with the appropriate code
-ggplot(...) +
-  geom_density(aes(x = ...)) +
-  facet_wrap(~ ..., scales = ... , ncol = 1) +
-  scale_x_date(name = ... , date_breaks = ..., date_labels = ...) #?strptime() for the list of specifications
+ggplot(dt) +
+  geom_density(aes(x = offensedate)) +
+  facet_wrap(~ year, scales = 'fixed', ncol = 1) +
+  scale_x_date(name = 'month', date_breaks = '1 month', date_labels = '%b') #?strptime() for the list of specifications
 ```
 
 ## Exercise
@@ -147,6 +147,16 @@ Using a dataset of terrorism casualties in Europe, plot a line chart of victims 
 
 ```{r}
 dt <- read_csv(file = 'https://raw.githubusercontent.com/fivethirtyeight/data/master/terrorism/eu_terrorism_fatalities_by_country.csv')
+
+dt$iyear <- as.POSIXct.Date(dt$iyear, '%Y')
+
+dt %>%
+  select(iyear, France, Italy) %>%
+  gather(country, victims, France, Italy) %>%
+  ggplot() +
+  geom_line(aes(x = iyear, y = victims, color = country)) +
+  xlab('date') +
+  scale_x_datetime(date_labels = '%y')
 ```
 
 

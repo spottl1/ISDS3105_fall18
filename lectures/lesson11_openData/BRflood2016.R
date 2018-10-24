@@ -47,7 +47,7 @@ dt_311 <- dt_311 %>%
 #' on the left menu select: credentials > create credentials > API key
 #' the API key goes in:
 
-ggmap::register_google(key = )
+ggmap::register_google(key = 'AIzaSyB24kUz3hg7KsTa6IYHQM_oaRNlxN4WJ00')
 
 #Use get_map to query the Google API (we use the LSU coordinate)
 brMap <- ggmap::get_map(location = c( lon = -91.1500, lat = 30.5000),  zoom = 10, maptype = 'toner') 
@@ -73,7 +73,11 @@ query <- "$where=disp_date between '2016-08-12' and '2016-08-22'"
 #' Filter only calls for inci_descript: 
 #' 'severe weather or natural disaster, other' OR 'water evacuation'
 
+dt_fire <- read.socrata(paste0(fireIncidens, query), app_token = token[['app']])
+dt_fire <- as_tibble(dt_fire)
 
+dt_fire <- dt_fire %>%
+  filter(inci_descript == 'Severe weather or natural disaster, Other' | inci_descript == 'Water evacuation')
 
 ######################################
 ####    LOOTING 911 calls        #####
@@ -87,7 +91,11 @@ query <- "$where=offense_date between '2016-08-12' and '2016-08-22'"
 #' Task: Use read.scorata to query the API and download police incidents records. 
 #' Filter only calls for offense_desc: 'looting'
 
+dt_crime <- read.socrata(paste0(crimeIncidents, query), app_token = token[['app']])
+dt_crime <- as_tibble(dt_crime)
 
+dt_crime <- dt_crime %>%
+  filter(offense_desc == 'LOOTING')
 
 ######################################
 ####    Layer of inundate areas  #####

@@ -2,7 +2,6 @@
 #' To use the Socrata API:
 #' create your  `token <- c(sec = ..., app = ...)` and keep 
 #' it into a separate .R to source()
-install.packages('RSocrata')
 source(here('lectures/lesson11_openData/lecture11Token.R'))
 library(RSocrata)
 library(here)
@@ -48,7 +47,7 @@ dt_311 <- dt_311 %>%
 #' on the left menu select: credentials > create credentials > API key
 #' the API key goes in:
 
-ggmap::register_google(key = 'AIzaSyDJnRmTNYJJLcJFVxlBR-10ne9eq25SWOM')
+ggmap::register_google(key = )
 
 #Use get_map to query the Google API (we use the LSU coordinate)
 brMap <- ggmap::get_map(location = c( lon = -91.1500, lat = 30.5000),  zoom = 10, maptype = 'toner') 

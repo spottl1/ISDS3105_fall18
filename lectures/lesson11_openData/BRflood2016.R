@@ -11,7 +11,6 @@ library(tidyverse)
 #' ggmap needs revisions. For now, we are stacked with the dev version
 if(!requireNamespace("devtools")) install.packages("devtools")
 devtools::install_github("dkahle/ggmap", ref = "tidyup")
-install.packages('ggmap')
 library(ggmap)
 
 ######################################

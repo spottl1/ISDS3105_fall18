@@ -10,7 +10,7 @@ library(tidyverse)
 #' Google API requirements has changed. As a results, the package
 #' ggmap needs revisions. For now, we are stacked with the dev version
 if(!requireNamespace("devtools")) install.packages("devtools")
-devtools::install_github("dkahle/ggmap", ref = "tidyup")
+devtools::install_github("dkahle/ggmap", ref = "tidyup", force = T)
 library(ggmap)
 
 ######################################
@@ -46,7 +46,7 @@ dt_311 <- dt_311 %>%
 #' on the left menu select: credentials > create credentials > API key
 #' the API key goes in:
 
-ggmap::register_google(key = 'AIzaSyB24kUz3hg7KsTa6IYHQM_oaRNlxN4WJ00')
+ggmap::register_google(key = 'AIzaSyB_UUCSHIILJnlyoNJkcOUxr6X0QeEVeg8')
 
 #Use get_map to query the Google API (we use the LSU coordinate)
 brMap <- ggmap::get_map(location = c( lon = -91.1500, lat = 30.5000),  zoom = 10, maptype = 'toner') 

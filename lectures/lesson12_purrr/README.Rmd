@@ -76,7 +76,6 @@ output
 Note how "filling" `t` is more efficient than iteratively add elements to `t` using indexing:
 
 ```{r}
-install.packages('microbenchmark')
 library(microbenchmark)
 t <- tibble(x = rep(t$x, 100))
 microbenchmark(
@@ -119,10 +118,10 @@ microbenchmark(
 ```
 
 
-To pass the arguments of the function `.f`, when have to options:
+To pass the arguments of the function `.f`, when have two options:
 
 - list them in `...` for instance `map(.x = x, .f = sum, na.rm = T)`
-- create a anonymous function for instance `map(.x = x, .f = ~ sum(.x, na.rm = T))`
+- create an anonymous function for instance `map(.x = x, .f = ~ sum(.x, na.rm = T))`
 
 ```{r}
 #load the environment load(here::here('data', 'dataset.rdata'))

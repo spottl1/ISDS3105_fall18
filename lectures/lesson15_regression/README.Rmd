@@ -137,12 +137,11 @@ library(plotly)
 
 ### Exercise
 
- - Using `fit`, calculate a prediction interval for the number of crimes for a day with a max temperature of 84 and no rain, and another day with max temperature 84 and 2 inches of rain.
+ - Using `fit2`, calculate a prediction interval for the number of crimes for a day with a max temperature of 84 and no rain, and another day with max temperature 84 and 2 inches of rain.
 ```{r}
-predTemp <- data_frame(TempHigh = c(84,84))
-predPrec <- data_frame(Precip = c(0,2))
+toPredict <- data.frame(TempHigh = c(84,84), Precip = c(0,2))
 
-exPI <- predict(fit, type = 'response', crimes = c(predTemp, predPrec), se.fit = T)[1:2]
+exPI <- predict(fit2, type = 'response', newdata = toPredict, se.fit = T)[1:2]
 
 data_frame(fitted = exPI$fit, lower = (exPI$fit - 1.96*exPI$se.fit), upper = (exPI$fit + 1.96*exPI$se.fit))
 
@@ -150,6 +149,23 @@ data_frame(fitted = exPI$fit, lower = (exPI$fit - 1.96*exPI$se.fit), upper = (ex
  
  
  - Plot the residuals for fit2 and analyze them. Select 1-2 observations the particularly misbehave and think about possible causes (e.g. gameday? mardi-gras?)
+
+```{r}
+dt_res2 <- fortify(fit2)
+ggplot(dt_res2, aes(sample = .resid)) +
+  stat_qq() +
+  stat_qq_line() +
+  ggtitle('Normal QQ-Plot')
+ggplot(dt_res2, aes(x = .fitted, y = .stdresid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = 2) +
+  ggtitle('Standardized Residuals vs. Fitted')
+ggplot(dt_res2, aes(x = .hat, y = .cooksd)) +
+  geom_point() +
+  geom_smooth(method = 'loess', na.rm = T) +
+  ggtitle("Cook's dist vs. Leverage")
+```
+
 
 
 ## References

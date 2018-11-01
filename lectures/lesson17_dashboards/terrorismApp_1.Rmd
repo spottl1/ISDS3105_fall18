@@ -40,8 +40,13 @@ Column {data-width=350}
 
 ```{r}
 
-#plot a linechart of the yearly casualties for 1 country (using dtYear)
-
+casualty <- function(x, y) {
+  x %>%
+    filter(country == y) %>%
+    ggplot() +
+    geom_line(aes(x = iyear, y = casualties))
+}
+casualty(dtYear, 'Belgium')
 
 ```
 
@@ -49,7 +54,7 @@ Column {data-width=350}
 
 ```{r}
 
-#plot a linechart of the yearly casualties for 1 country (using dtYear)
+casualty(dtYear, 'France')
 
 ```
 

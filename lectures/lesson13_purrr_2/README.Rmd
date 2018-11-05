@@ -76,6 +76,23 @@ bad_drivers %>% mutate_at(vars(starts_with('perc')), .funs = funs(paste0(., '%')
 ```{r}
 hotels <- read_csv(here::here('data','taipeiHotel', 'hotel.csv'))
 performance <- read_csv(here::here('data','taipeiHotel', 'performance.csv'))
+
+drawAVG <- function(data, title) {
+  ggplot(data = data) +
+    geom_line(aes(x = Month, y = AverageRoomRate)) +
+    ggtitle('Average Room Rates for Hotel')
+}
+
+group_performance1 <- performance %>%
+  group_by(hotel) %>%
+  nest()
+
+group_performance2 <- group_performance1 %>%
+  mutate(rates = pmap(list(data = .$data, title = .$hotel), .f = drawAVG))
+
+drawAVG(group_performance1$data[[1]])
+
+ggsave('lectures/lesson13_purrr_2/timeLines', plot = last_plot(), device = 'png')
 ```
 
 Create an ggplot function to draw a linechart of the `AverageRoomRate` over time (`Month`) and save it into a folder 'timeLines'. Use iteration to create a separate chart of each hotel and save it. Make sure each chart is titled and saved meaningfully.

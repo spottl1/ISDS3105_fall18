@@ -76,7 +76,7 @@ url <- 'https://www.indeed.com/cmp/Exxonmobil'
 session <- html_session(url) 
 ```
  
-Then we use `html_form` to access the code for any form within the page. There two forms (one at the top, one at the bottom). We save the first to to object `from`:
+Then we use `html_form` to access the code for any form within the page. There two forms (one at the top, one at the bottom). We save the first to to object `form`:
  
 ```{r}
 form <- html_form(session)[[1]]

@@ -41,7 +41,8 @@ ggplot(data = dt_crimes, aes(x = TempHigh, y = n)) +
   #geom_smooth(method = "glm", method.args = list(family = 'gaussian'), aes(color = "gaussian"), se = F) +
   geom_smooth(method = "glm", method.args = list(family = 'poisson'), aes(color = "poisson"), se = T) +
   scale_x_continuous(name = 'Max Temp.(F)') +
-  ggtitle('Count of crimes and daily Temperature') 
+  ggtitle('Count of crimes and daily Temperature')
+
 ```
 
 `se` is for displaying confidence intervals (95% by default). The interpretation of confidence intervals it *not* a probability of being right. Check [this animation](http://rpsychologist.com/d3/CI/) for a brief explanation. It is a range of plausible values for the population paremeter being estimated along with the estimation procedure.

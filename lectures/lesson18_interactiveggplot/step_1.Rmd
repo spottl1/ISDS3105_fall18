@@ -10,6 +10,7 @@ editor_options:
 library(shiny)
 library(fivethirtyeight)
 library(tidyverse)
+library(ggiraph)
 knitr::opts_chunk$set(echo = F)
 ```
 
@@ -19,13 +20,18 @@ knitr::opts_chunk$set(echo = F)
 ```{r}
 #use selectInput() to create a dropdown menu
 #you can use html code to position the input widget ----  e.g. div(style="display:inline-block", .... )
+
+div(style = 'display:inline-block', selectInput( inputId = 'xaxis', 'X Variable', names(bad_drivers), selected = 'perc_speeding'))
+div(style = 'display:inline-block', selectInput( inputId = 'yaxis', 'Y variable', names(bad_drivers), selected = 'perc_alcohol'))
 ```
 
 
 ```{r}
 #read about `aes_string`. You want to use `aes_string` instead of `aes` since `selectInput` returns a character.
 renderPlot({
-#put the ggplot object here to make it reactive
+  ggplot(data = bad_drivers, aes_string(x = input$xaxis, y = input$yaxis)) +
+    geom_point() +
+    ggtitle('Insurance Premiums Data')
 })
 ```
 

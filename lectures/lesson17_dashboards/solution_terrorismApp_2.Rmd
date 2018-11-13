@@ -35,6 +35,8 @@ statesNames <- setNames(unique(dt$state), unique(dt$state)) %>% as.list()
  selectInput("state2", label = h4("State 2"), 
     choices = statesNames, 
     selected = 'United Kingdom')
+ 
+ 
 ```
  
 

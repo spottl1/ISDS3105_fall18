@@ -38,7 +38,7 @@ A linear model has three elements:
 ```{r visualizing a lm}
 ggplot(data = dt_crimes, aes(x = TempHigh, y = n)) +
   geom_point() +
-  #geom_smooth(method = "glm", method.args = list(family = 'gaussian'), aes(color = "gaussian"), se = F) +
+  geom_smooth(method = "glm", method.args = list(family = 'gaussian'), aes(color = "gaussian"), se = F) +
   geom_smooth(method = "glm", method.args = list(family = 'poisson'), aes(color = "poisson"), se = T) +
   scale_x_continuous(name = 'Max Temp.(F)') +
   ggtitle('Count of crimes and daily Temperature')

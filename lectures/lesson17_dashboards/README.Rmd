@@ -17,8 +17,8 @@ Dashboards are often used for exploratory analysis or monitoring, but they can b
 To start with `flexdashboard`, follow these [instructions](https://rmarkdown.rstudio.com/flexdashboard/). To install `flexdashboard` and `shiny`
 
 ```{r}
-install.packages("flexdashboard")
-install.packages("shiny")
+library(flexdashboard)
+library(shiny)
 ```
 
 Our goal is to create a dashboard to analyse data about the victims of terrorism using the dataset available on the GitHub page of `fivethirtyeight`:

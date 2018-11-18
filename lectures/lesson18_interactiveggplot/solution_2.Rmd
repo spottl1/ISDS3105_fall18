@@ -26,12 +26,11 @@ div(style="display:inline-block", selectInput( inputId = "yaxis", "Y variable:",
 ```{r}
 #read about `aes_string`. You want to use `aes_string` instead of `aes` since `selectInput` returns a character.
 renderGirafe({
-p1 <- ggplot(data = bad_drivers, aes_string(x = input$xaxis, y = input$yaxis,  tooltip = 'state'))  +
-    geom_point_interactive() +
+p1 <- ggplot(data = bad_drivers, aes_string(x = input$xaxis, y = input$yaxis, tooltip = 'state'))  +
+    geom_point() +
   ggtitle('Insurance premiums data')
 girafe(ggobj = p1, width = .7)
 })
-
 ```
 
 

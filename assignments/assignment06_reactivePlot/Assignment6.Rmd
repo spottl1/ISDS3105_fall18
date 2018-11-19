@@ -31,10 +31,11 @@ div(style='display:inline-block', textInput(inputId = 'state', "Selected State:"
 
 ```{r echo=F}
 renderGirafe({
-  selected_state <- map(bad_drivers, ifelse(input$state %in% bad_drivers$state, 'selected', 'NA'))
+  selected_state <- ifelse(bad_drivers$state %in% input$state, 'selected', 'NA')
   
   plot <- ggplot(data = bad_drivers, aes_string(x = input$xaxis, y = input$yaxis, size = input$dotSize, tooltip = 'state')) +
     geom_point_interactive(aes(color = selected_state)) +
+    scale_color_discrete(guide = 'none') +
     ggtitle('Insurance Premiums Data')
 
   girafe(ggobj = plot, width = .7)

@@ -52,7 +52,7 @@ ggmap::register_google(key = 'AIzaSyB_UUCSHIILJnlyoNJkcOUxr6X0QeEVeg8')
 brMap <- ggmap::get_map(location = c( lon = -91.1500, lat = 30.5000),  zoom = 10, maptype = 'toner') 
 
 #' In case you cannot connect to the API, I saved for you the object brMap to data/mapTerrainBR.RDS
-#' brMap <- readRDS(here::here('data/mapTerrainBR.RDS')) 
+ brMap <- readRDS(here::here('mapTerrainBR.RDS')) 
 
 ggmap::ggmap(brMap) +
   geom_point(data = filter(dt_311, parenttype == "DRAINAGE, EROSION, FLOODING OR HOLES"),
